@@ -1,15 +1,15 @@
-import { Link } from "react-router-dom"
-import { LoginForm } from "../Forms/LoginForm"
+import { Link } from "react-router-dom";
+import { LoginForm } from "../Forms/LoginForm";
 
 export const LoginContainer = () => {
-    return (
-        <div>
-            <div>
-                <h3>Login</h3>
-                <LoginForm />
-                <p>ou</p>
-                <Link to={"/register"}>Cadastre=se</Link>
-            </div>
-        </div>
-    )
-}
+  return (
+    <div>
+      <div>
+        <h3>Login</h3>
+        <LoginForm />
+        <p>ou</p>
+        <Link to={"/register"}>Cadastre=se</Link>
+      </div>
+    </div>
+  );
+};
