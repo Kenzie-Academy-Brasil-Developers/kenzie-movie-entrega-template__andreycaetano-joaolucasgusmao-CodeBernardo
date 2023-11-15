@@ -31,3 +31,8 @@ export interface IAllProductsReviews extends IDefaultRequisition{
     allProductReviewData: IProductReview[],
     loadAllProductsReviews: () => Promise<void>
 }
+
+export interface IProductByIdStore extends IDefaultRequisition{
+    productData: object,
+    loadProductById: (id: number) => Promise<void>
+}
