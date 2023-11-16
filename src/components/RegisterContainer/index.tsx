@@ -1,19 +1,21 @@
-
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
-import { RegisterForm } from '../Forms/RegisterForm';
+import { RegisterForm } from "../Forms/RegisterForm";
 
 export const RegisterContainer = () => {
-    return (
+  return (
+    <div>
+      <div>
         <div>
-            <div>
-                <div>
-                    <h3>Cadastro</h3>
-                    <p>Preencha os campos para cadastrar-se</p>
-                </div>
-                <Link to={"/login"}> <MdArrowBack /> Voltar</Link>
-            </div>
-            <RegisterForm />
+          <h3>Cadastro</h3>
+          <p>Preencha os campos para cadastrar-se</p>
         </div>
-    )
-}
+        <Link to={"/login"}>
+          {" "}
+          <MdArrowBack /> Voltar
+        </Link>
+      </div>
+      <RegisterForm />
+    </div>
+  );
+};
