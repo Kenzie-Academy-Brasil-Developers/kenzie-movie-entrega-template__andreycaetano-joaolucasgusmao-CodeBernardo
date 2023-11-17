@@ -14,7 +14,6 @@ export const Select = ({ errors, options, register }: ISelectProps) => {
         ))}
       </select>
       {errors ? <p>{errors}</p> : null}
-
     </div>
   );
 };

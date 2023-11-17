@@ -13,10 +13,7 @@ export const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Input type="email"
-        placeholder="E-mail"
-        register={register("email")}
-      />
+      <Input type="email" placeholder="E-mail" register={register("email")} />
       {errors.email ? <p>{errors.email.message}</p> : null}
       <Input
         type="password"
