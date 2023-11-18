@@ -6,9 +6,7 @@ export const DefaultTemplate = ({ children }: DefaultTemplateProps) => {
   return (
     <>
       <Header />
-      <main>
-      {children}
-      </main>
+      <main>{children}</main>
       <Footer />
     </>
   );
