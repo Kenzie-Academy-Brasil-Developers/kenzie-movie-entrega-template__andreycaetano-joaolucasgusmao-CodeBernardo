@@ -3,11 +3,9 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { TLoginFormValues, loginFormSchema } from "./loginForm.schema";
 import { Input } from "../../Input";
 import { useAuth } from "../../../contexts/user/user";
-import { useNavigate } from "react-router-dom";
 
 export const LoginForm = () => {
   const {signIn} = useAuth()
-  const navigate = useNavigate()
 
   const {
     register,
@@ -19,9 +17,6 @@ export const LoginForm = () => {
     await signIn({
       email: data.email,
       password: data.password
-    }).then(()=>navigate("/"))
-    .catch((error) => {
-      console.error(error)
     })
   };
 
