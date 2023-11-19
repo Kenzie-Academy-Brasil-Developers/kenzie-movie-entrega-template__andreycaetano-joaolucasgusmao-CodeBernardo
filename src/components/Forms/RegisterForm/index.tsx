@@ -5,7 +5,7 @@ import { TRegisterFormValues, registerFormSchema } from "./registerForm.schema";
 import { useAuth } from "../../../contexts/user/user";
 
 export const RegisterForm = () => {
-  const {userRegister} = useAuth()
+  const { userRegister } = useAuth();
 
   const {
     register,
@@ -14,14 +14,14 @@ export const RegisterForm = () => {
   } = useForm<TRegisterFormValues>({
     resolver: zodResolver(registerFormSchema),
   });
-  
+
   const onSubmit: SubmitHandler<TRegisterFormValues> = async (data) => {
     await userRegister({
       email: data.email,
       password: data.password,
-      name: data.name
-    })
-  }
+      name: data.name,
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

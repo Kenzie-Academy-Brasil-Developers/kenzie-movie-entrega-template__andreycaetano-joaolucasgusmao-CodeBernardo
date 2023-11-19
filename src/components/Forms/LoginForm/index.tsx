@@ -5,7 +5,7 @@ import { Input } from "../../Input";
 import { useAuth } from "../../../contexts/user/user";
 
 export const LoginForm = () => {
-  const {signIn} = useAuth()
+  const { signIn } = useAuth();
 
   const {
     register,
@@ -16,8 +16,8 @@ export const LoginForm = () => {
   const onSubmit: SubmitHandler<TLoginFormValues> = async (data) => {
     await signIn({
       email: data.email,
-      password: data.password
-    })
+      password: data.password,
+    });
   };
 
   return (

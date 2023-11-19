@@ -3,11 +3,11 @@ import { AuthProvider } from "./contexts/user/user";
 import { Router } from "./routes/routes";
 
 export const App = () => {
-    return(
-        <AuthProvider>
-            <BrowserRouter>
-                <Router/>
-            </BrowserRouter>
-        </AuthProvider>
-    )
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
+    </AuthProvider>
+  );
 };
