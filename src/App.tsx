@@ -1,10 +1,1 @@
-import { CreateFeedbackModal } from "./components/Modals/CreateFeedbackModal";
-
-export const App = () => {
-    return (
-        <>
-            <CreateFeedbackModal />
-        </>
-    )
-
-};
+export const App = () => {};
