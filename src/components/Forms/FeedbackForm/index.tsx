@@ -1,4 +1,4 @@
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { Select } from "../../Select";
 import { TFeedbackFormValues, feedbackFormSchema } from "./feedbackForm.schema";
 import { options } from "../../../@types/select";
