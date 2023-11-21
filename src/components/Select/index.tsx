@@ -1,11 +1,11 @@
 import { ISelectProps } from "../../@types/select";
 
-export const Select = ({ errors, options, register }: ISelectProps) => {
+export const Select = ({ errors, options, register, placeholder }: ISelectProps) => {
   return (
     <div>
-      <select {...register}>
-        <option value="" disabled selected>
-          Selecione uma nota
+      <select {...register} defaultValue="" placeholder={placeholder}>
+        <option value="" disabled>
+          {placeholder}
         </option>
         {options.map((opt) => (
           <option key={opt.value} value={opt.value}>
