@@ -1,7 +1,13 @@
 import { MdOutlineClose } from "react-icons/md";
 import { FeedbackForm } from "../../Forms/FeedbackForm";
+import { createAvaliation } from "../../../contexts/products";
 
-export const CreateFeedbackModal = () => {
+interface ICreateFeedbackModal {
+  movieId: number;
+  userId: number;
+}
+
+export const CreateFeedbackModal = ({movieId, userId}: ICreateFeedbackModal) => {
   return (
     <div>
       <div>
@@ -9,7 +15,7 @@ export const CreateFeedbackModal = () => {
         <span>
           <MdOutlineClose />
         </span>
-        <FeedbackForm />
+        <FeedbackForm movieId={movieId} userId={userId} callback={createAvaliation}/>
       </div>
     </div>
   );

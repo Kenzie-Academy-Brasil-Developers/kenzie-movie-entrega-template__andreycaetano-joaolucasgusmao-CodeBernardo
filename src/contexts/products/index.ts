@@ -9,8 +9,9 @@ import {
   IUserReview,
 } from "../../@types/products";
 import { useCallback } from "react";
+import { useAuth } from "../user/user";
 
-export interface ICreateAvaliation {
+export interface IRequisitioAvaliation {
   movieId: number;
   userId: number;
   score: number;
@@ -97,9 +98,9 @@ export const useProductByUserIdStore = create<IProductByUserIdStore>((set) => ({
 
 
 export const createAvaliation = useCallback(
-  async({movieId, userId, score, description}:ICreateAvaliation) => {
+  async({movieId, userId, score, description}:IRequisitioAvaliation) => {
     try {
-      const token = localStorage.getItem("@KenzieMovie:token");
+      const token = useAuth();
       await api.post("/reviews" , {
         movieId,
         userId,
@@ -114,3 +115,22 @@ export const createAvaliation = useCallback(
       console.error(error)
     }
   }, [])
+
+  export const editAvaliation = useCallback(
+    async({movieId, userId, score, description}:IRequisitioAvaliation) => {
+      try {
+        const token = useAuth();
+        await api.put(`/reviews/${movieId}}` , {
+          movieId,
+          userId,
+          score,
+          description
+        },{
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+      } catch (error) {
+        console.error(error)
+      }
+    } ,[])
