@@ -1,5 +1,5 @@
-import { CurrentMovie } from "./CurrentMovie";
-import { MoviesList } from "./MoviesList";
+import { CurrentMovie } from "../../components/CurrentMovie";
+import { MoviesList } from "../../components/MoviesList";
 
 export const HomePage = () => {
   return (
