@@ -8,6 +8,14 @@ import {
   IProducts,
   IUserReview,
 } from "../../@types/products";
+import { useCallback } from "react";
+
+export interface ICreateAvaliation {
+  movieId: number;
+  userId: number;
+  score: number;
+  description: string;
+}
 
 export const useAllProductsStore = create<IAllProducts>((set) => ({
   loading: false,
@@ -86,3 +94,23 @@ export const useProductByUserIdStore = create<IProductByUserIdStore>((set) => ({
     }
   },
 }));
+
+
+export const createAvaliation = useCallback(
+  async({movieId, userId, score, description}:ICreateAvaliation) => {
+    try {
+      const token = localStorage.getItem("@KenzieMovie:token");
+      await api.post("/reviews" , {
+        movieId,
+        userId,
+        score,
+        description
+      },{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }, [])

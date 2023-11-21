@@ -9,7 +9,7 @@ import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
 interface IAuthContextState {
-  token: ITokenState;
+  token: ITokenState | null;
   signIn({ email, password }: IUserData): Promise<void>;
   userLogged(): boolean;
   userRegister({ email, password, name }: IRegisterUser): Promise<void>;
@@ -36,14 +36,14 @@ const AuthContext = createContext<IAuthContextState>({} as IAuthContextState);
 
 export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
   const navigate = useNavigate();
-  const [token, setToken] = useState<ITokenState>(() => {
+  const [token, setToken] = useState<ITokenState | null> (() => {
     const token = localStorage.getItem("@KenzieMovie:token");
 
     if (token) {
       return { token };
     }
 
-    return {} as ITokenState;
+      return null
   });
 
   const userRegister = useCallback(
