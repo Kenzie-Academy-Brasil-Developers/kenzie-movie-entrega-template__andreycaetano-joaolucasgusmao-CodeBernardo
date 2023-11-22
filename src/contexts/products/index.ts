@@ -11,6 +11,7 @@ import {
 } from "../../@types/products";
 import { useCallback } from "react";
 import { useAuth } from "../user/user";
+import { useCalcMedia } from "../../hooks";
 
 export interface IRequisitioAvaliation {
   movieId: number;
@@ -60,14 +61,13 @@ export const useAllProductReviewsStore = create<IAllProductsReviews>((set) => ({
 export const useProductByIdStore = create<IProductByIdStore>((set) => ({
   loading: false,
   error: "",
-  productData: {},
+  productData: {} as IProductReview,
+  note: null,
   loadProductById: async (id: string | undefined) => {
     try {
       set({ loading: true, error: "" });
-      const { data } = await api.get<IProductReview>(
-        `/movies/${id}?_embed=reviews`
-      );
-      set({ productData: data });
+      const { data } = await api.get<IProductReview>(`/movies/${id}?_embed=reviews`);
+      set({ productData: data, note: useCalcMedia(data) });
     } catch (error) {
       console.error(error);
       set({ error: "Algo deu errado!" });

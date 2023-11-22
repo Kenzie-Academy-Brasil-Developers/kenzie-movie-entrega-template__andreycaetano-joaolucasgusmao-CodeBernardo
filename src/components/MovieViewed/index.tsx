@@ -1,27 +1,31 @@
-import React from "react";
-import { IProductReview } from "../../@types/products";
-import { useCalcMedia } from "../../hooks";
+import { useParams } from "react-router-dom";
+import { useProductByIdStore } from "../../contexts/products";
+import { useEffect } from "react";
 
-interface IMovie {
-  movie: IProductReview
-}
 
-export const MovieViewed: React.FC<IMovie> = ({movie}) => {
+
+export const MovieViewed= () => {
+  const { id } = useParams()
+  const {loadProductById, productData, note} = useProductByIdStore((store) => store)
+  useEffect(() => {
+    loadProductById(id)
+  }, [])
+  console.log(productData)
   return (
     <>
-      <img src={movie.image} alt={movie.name} />
+      <img src={productData.image} alt={productData.name} />
       <div>
-        <button>{movie.type}</button>
-        <h2>{movie.name}</h2>
+        <button>{productData.type}</button>
+        <h2>{productData.name}</h2>
         <div>
-          <span>{movie.duration}</span>
+          <span>{productData.duration}</span>
           <div>
-            <i>Star Icon</i>
-            <span>{useCalcMedia(movie)}</span>
+            <i>Star Icon</i><br/>
+            <span>{note}</span>
           </div>
         </div>
       </div>
-      <p>{movie.synopsis}</p>
+      <p>{productData.synopsis}</p>
     </>
   );
 };

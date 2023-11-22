@@ -36,7 +36,7 @@ interface IInputProps {
 const AuthContext = createContext<IAuthContextState>({} as IAuthContextState);
 
 export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [token, setToken] = useState<ITokenState | null> (() => {
     const token = localStorage.getItem("@KenzieMovie:token");
 
@@ -55,7 +55,7 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
           password,
           name,
         });
-        navigate("/login");
+        // navigate("/login");
       } catch (error) {
         console.error(error);
       }
@@ -72,7 +72,7 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
       const { token } = response.data;
       setToken(token);
       localStorage.setItem("@KenzieMovie:token", token);
-      navigate("/");
+      // navigate("/");
     } catch (error) {
       console.error(error);
     }

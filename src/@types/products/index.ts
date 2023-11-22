@@ -33,7 +33,8 @@ export interface IAllProductsReviews extends IDefaultRequisition {
 }
 
 export interface IProductByIdStore extends IDefaultRequisition {
-  productData: object;
+  note: number | null
+  productData: IProductReview;
   loadProductById: (id: string |undefined) => Promise<void>;
 }
 
