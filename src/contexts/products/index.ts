@@ -8,6 +8,15 @@ import {
   IProducts,
   IUserReview,
 } from "../../@types/products";
+import { useCallback } from "react";
+import { useAuth } from "../user/user";
+
+export interface IRequisitioAvaliation {
+  movieId: number;
+  userId: number;
+  score: number;
+  description: string;
+}
 
 export const useAllProductsStore = create<IAllProducts>((set) => ({
   loading: false,
@@ -86,3 +95,42 @@ export const useProductByUserIdStore = create<IProductByUserIdStore>((set) => ({
     }
   },
 }));
+
+
+export const createAvaliation = useCallback(
+  async({movieId, userId, score, description}:IRequisitioAvaliation) => {
+    try {
+      const token = useAuth();
+      await api.post("/reviews" , {
+        movieId,
+        userId,
+        score,
+        description
+      },{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }, [])
+
+  export const editAvaliation = useCallback(
+    async({movieId, userId, score, description}:IRequisitioAvaliation) => {
+      try {
+        const token = useAuth();
+        await api.put(`/reviews/${movieId}}` , {
+          movieId,
+          userId,
+          score,
+          description
+        },{
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+      } catch (error) {
+        console.error(error)
+      }
+    } ,[])

@@ -2,14 +2,23 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { TLoginFormValues, loginFormSchema } from "./loginForm.schema";
 import { Input } from "../../Input";
+import { useAuth } from "../../../contexts/user/user";
 
 export const LoginForm = () => {
+  const { signIn } = useAuth();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<TLoginFormValues>({ resolver: zodResolver(loginFormSchema) });
-  const onSubmit: SubmitHandler<TLoginFormValues> = (data) => console.log(data);
+
+  const onSubmit: SubmitHandler<TLoginFormValues> = async (data) => {
+    await signIn({
+      email: data.email,
+      password: data.password,
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

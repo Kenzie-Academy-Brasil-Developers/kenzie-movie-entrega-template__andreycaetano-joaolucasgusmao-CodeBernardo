@@ -5,8 +5,14 @@ import { options } from "../../../@types/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MdOutlineStarBorder } from "react-icons/md";
 import { Textarea } from "../../Textarea";
+import { ICreateAvaliation } from "../../../contexts/products";
 
-export const FeedbackForm = () => {
+interface IFeedbackForm {
+  movieId: number;
+  userId: number;
+  callback: (data: ICreateAvaliation) => Promise<void>
+}
+export const FeedbackForm = ({movieId, userId, callback}:IFeedbackForm) => {
   const {
     register,
     handleSubmit,
@@ -15,8 +21,14 @@ export const FeedbackForm = () => {
     resolver: zodResolver(feedbackFormSchema),
   });
 
-  const onSubmit: SubmitHandler<TFeedbackFormValues> = (data) =>
-    console.log(data);
+  const onSubmit: SubmitHandler<TFeedbackFormValues> = async (data) => {
+    await callback({
+      movieId: movieId,
+      userId: userId,
+      score: Number(data.nota),
+      description: data.comentario
+    })
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
