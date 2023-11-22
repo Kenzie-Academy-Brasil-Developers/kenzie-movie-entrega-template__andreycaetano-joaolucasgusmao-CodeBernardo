@@ -1,19 +1,27 @@
-export const MovieViewed = () => {
+import React from "react";
+import { IProductReview } from "../../@types/products";
+import { useCalcMedia } from "../../hooks";
+
+interface IMovie {
+  movie: IProductReview
+}
+
+export const MovieViewed: React.FC<IMovie> = ({movie}) => {
   return (
     <>
-      <img src="#" alt="Current Movie" />
+      <img src={movie.image} alt={movie.name} />
       <div>
-        <button>Current Gender</button>
-        <h2>Current Movie Name</h2>
+        <button>{movie.type}</button>
+        <h2>{movie.name}</h2>
         <div>
-          <span>Current Duration</span>
+          <span>{movie.duration}</span>
           <div>
             <i>Star Icon</i>
-            <span>Current Avaliation</span>
+            <span>{useCalcMedia(movie)}</span>
           </div>
         </div>
       </div>
-      <p>Movie Description</p>
+      <p>{movie.synopsis}</p>
     </>
   );
 };

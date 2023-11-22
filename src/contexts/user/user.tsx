@@ -13,6 +13,7 @@ interface IAuthContextState {
   signIn({ email, password }: IUserData): Promise<void>;
   userLogged(): boolean;
   userRegister({ email, password, name }: IRegisterUser): Promise<void>;
+  useUser: Function
 }
 
 interface IUserData {
@@ -85,6 +86,15 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
     return false;
   }, []);
 
+  const useUser = useCallback(async (id: number) => {
+    try {
+      const {data} = await api.get(`/users/${id}`)
+      return data
+    } catch (error) {
+      console.error(error)
+    }
+  },[])
+
   return (
     <AuthContext.Provider
       value={{
@@ -92,6 +102,7 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
         signIn,
         userLogged,
         userRegister,
+        useUser,
       }}
     >
       {children}
