@@ -6,8 +6,8 @@ export const App = () => {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <Router />
+          <Router />
       </BrowserRouter>
-    </AuthProvider>
+        </AuthProvider>
   );
 };
