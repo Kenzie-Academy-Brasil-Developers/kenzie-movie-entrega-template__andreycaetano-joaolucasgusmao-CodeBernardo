@@ -3,6 +3,7 @@ import { api } from "../../services/api";
 import {
   IAllProducts,
   IAllProductsReviews,
+  IProductByIdStore,
   IProductByUserIdStore,
   IProductReview,
   IProducts,
@@ -56,11 +57,11 @@ export const useAllProductReviewsStore = create<IAllProductsReviews>((set) => ({
   },
 }));
 
-export const useProductByIdStore = create((set) => ({
+export const useProductByIdStore = create<IProductByIdStore>((set) => ({
   loading: false,
   error: "",
   productData: {},
-  loadProductById: async (id: number) => {
+  loadProductById: async (id: string | undefined) => {
     try {
       set({ loading: true, error: "" });
       const { data } = await api.get<IProductReview>(
@@ -97,40 +98,40 @@ export const useProductByUserIdStore = create<IProductByUserIdStore>((set) => ({
 }));
 
 
-export const createAvaliation = useCallback(
-  async({movieId, userId, score, description}:IRequisitioAvaliation) => {
-    try {
-      const token = useAuth();
-      await api.post("/reviews" , {
-        movieId,
-        userId,
-        score,
-        description
-      },{
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }, [])
+// export const createAvaliation = useCallback(
+//   async({movieId, userId, score, description}:IRequisitioAvaliation) => {
+//     try {
+//       const token = useAuth();
+//       await api.post("/reviews" , {
+//         movieId,
+//         userId,
+//         score,
+//         description
+//       },{
+//         headers: {
+//           Authorization: `Bearer ${token}`
+//         }
+//       })
+//     } catch (error) {
+//       console.error(error)
+//     }
+//   }, [])
 
-  export const editAvaliation = useCallback(
-    async({movieId, userId, score, description}:IRequisitioAvaliation) => {
-      try {
-        const token = useAuth();
-        await api.put(`/reviews/${movieId}}` , {
-          movieId,
-          userId,
-          score,
-          description
-        },{
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
-      } catch (error) {
-        console.error(error)
-      }
-    } ,[])
+//   export const editAvaliation = useCallback(
+//     async({movieId, userId, score, description}:IRequisitioAvaliation) => {
+//       try {
+//         const token = useAuth();
+//         await api.put(`/reviews/${movieId}}` , {
+//           movieId,
+//           userId,
+//           score,
+//           description
+//         },{
+//           headers: {
+//             Authorization: `Bearer ${token}`
+//           }
+//         })
+//       } catch (error) {
+//         console.error(error)
+//       }
+//     } ,[])

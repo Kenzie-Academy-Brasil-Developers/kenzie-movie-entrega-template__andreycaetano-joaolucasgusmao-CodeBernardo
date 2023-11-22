@@ -4,10 +4,10 @@ import { Router } from "./routes/routes";
 
 export const App = () => {
   return (
-    <AuthProvider>
       <BrowserRouter>
-        <Router />
+        <AuthProvider>
+          <Router />
+        </AuthProvider>
       </BrowserRouter>
-    </AuthProvider>
   );
 };

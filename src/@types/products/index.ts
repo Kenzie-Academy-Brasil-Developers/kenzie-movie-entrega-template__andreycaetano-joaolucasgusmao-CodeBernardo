@@ -34,7 +34,7 @@ export interface IAllProductsReviews extends IDefaultRequisition {
 
 export interface IProductByIdStore extends IDefaultRequisition {
   productData: object;
-  loadProductById: (id: number) => Promise<void>;
+  loadProductById: (id: string |undefined) => Promise<void>;
 }
 
 export interface IProductByUserIdStore extends IDefaultRequisition {
