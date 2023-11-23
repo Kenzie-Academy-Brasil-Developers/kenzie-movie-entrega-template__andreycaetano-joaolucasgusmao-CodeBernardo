@@ -10,9 +10,9 @@ import { ICreateAvaliation } from "../../../contexts/products";
 interface IFeedbackForm {
   movieId: number;
   userId: number;
-  callback: (data: ICreateAvaliation) => Promise<void>
+  callback: (data: ICreateAvaliation) => Promise<void>;
 }
-export const FeedbackForm = ({movieId, userId, callback}:IFeedbackForm) => {
+export const FeedbackForm = ({ movieId, userId, callback }: IFeedbackForm) => {
   const {
     register,
     handleSubmit,
@@ -26,9 +26,9 @@ export const FeedbackForm = ({movieId, userId, callback}:IFeedbackForm) => {
       movieId: movieId,
       userId: userId,
       score: Number(data.nota),
-      description: data.comentario
-    })
-  }
+      description: data.comentario,
+    });
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

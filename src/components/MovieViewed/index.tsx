@@ -2,15 +2,15 @@ import { useParams } from "react-router-dom";
 import { useProductByIdStore } from "../../contexts/products";
 import { useEffect } from "react";
 
-
-
-export const MovieViewed= () => {
-  const { id } = useParams()
-  const {loadProductById, productData, note} = useProductByIdStore((store) => store)
+export const MovieViewed = () => {
+  const { id } = useParams();
+  const { loadProductById, productData, note } = useProductByIdStore(
+    (store) => store
+  );
   useEffect(() => {
-    loadProductById(id)
-  }, [])
-  console.log(productData)
+    loadProductById(id);
+  }, []);
+  console.log(productData);
   return (
     <>
       <img src={productData.image} alt={productData.name} />
@@ -20,7 +20,8 @@ export const MovieViewed= () => {
         <div>
           <span>{productData.duration}</span>
           <div>
-            <i>Star Icon</i><br/>
+            <i>Star Icon</i>
+            <br />
             <span>{note}</span>
           </div>
         </div>

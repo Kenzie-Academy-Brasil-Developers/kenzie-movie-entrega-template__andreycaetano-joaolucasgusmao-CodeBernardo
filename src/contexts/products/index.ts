@@ -66,7 +66,9 @@ export const useProductByIdStore = create<IProductByIdStore>((set) => ({
   loadProductById: async (id: string | undefined) => {
     try {
       set({ loading: true, error: "" });
-      const { data } = await api.get<IProductReview>(`/movies/${id}?_embed=reviews`);
+      const { data } = await api.get<IProductReview>(
+        `/movies/${id}?_embed=reviews`
+      );
       set({ productData: data, note: useCalcMedia(data) });
     } catch (error) {
       console.error(error);
@@ -96,7 +98,6 @@ export const useProductByUserIdStore = create<IProductByUserIdStore>((set) => ({
     }
   },
 }));
-
 
 // export const createAvaliation = useCallback(
 //   async({movieId, userId, score, description}:IRequisitioAvaliation) => {

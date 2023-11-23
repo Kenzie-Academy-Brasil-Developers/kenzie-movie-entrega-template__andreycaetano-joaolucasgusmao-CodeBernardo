@@ -3,10 +3,10 @@ import { IProductReview } from "../../@types/products";
 import { useCalcMedia } from "../../hooks";
 
 interface IMovie {
-  movie: IProductReview
+  movie: IProductReview;
 }
 
-export const MoviesList: React.FC<IMovie> = ({movie}) => {
+export const MoviesList: React.FC<IMovie> = ({ movie }) => {
   return (
     <>
       <li>

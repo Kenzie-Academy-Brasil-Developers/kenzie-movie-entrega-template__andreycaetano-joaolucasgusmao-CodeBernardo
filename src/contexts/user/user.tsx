@@ -13,7 +13,7 @@ interface IAuthContextState {
   signIn({ email, password }: IUserData): Promise<void>;
   userLogged(): boolean;
   userRegister({ email, password, name }: IRegisterUser): Promise<void>;
-  useUser: Function
+  useUser: Function;
 }
 
 interface IUserData {
@@ -37,14 +37,14 @@ const AuthContext = createContext<IAuthContextState>({} as IAuthContextState);
 
 export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
   // const navigate = useNavigate();
-  const [token, setToken] = useState<ITokenState | null> (() => {
+  const [token, setToken] = useState<ITokenState | null>(() => {
     const token = localStorage.getItem("@KenzieMovie:token");
 
     if (token) {
       return { token };
     }
 
-      return null
+    return null;
   });
 
   const userRegister = useCallback(
@@ -88,12 +88,12 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
 
   const useUser = useCallback(async (id: number) => {
     try {
-      const {data} = await api.get(`/users/${id}`)
-      return data
+      const { data } = await api.get(`/users/${id}`);
+      return data;
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  },[])
+  }, []);
 
   return (
     <AuthContext.Provider
