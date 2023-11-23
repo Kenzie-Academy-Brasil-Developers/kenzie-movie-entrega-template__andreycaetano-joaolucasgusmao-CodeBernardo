@@ -6,7 +6,6 @@ import {
   useState,
 } from "react";
 import { api } from "../../services/api";
-import { useNavigate } from "react-router-dom";
 
 interface IAuthContextState {
   token: ITokenState | null;
@@ -14,8 +13,8 @@ interface IAuthContextState {
   userLogged(): boolean;
   userRegister({ email, password, name }: IRegisterUser): Promise<void>;
   useUser: Function;
+  useUserByToken: Function
 }
-
 interface IUserData {
   email: string;
   password: string;
@@ -36,8 +35,7 @@ interface IInputProps {
 const AuthContext = createContext<IAuthContextState>({} as IAuthContextState);
 
 export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
-  // const navigate = useNavigate();
-  const [token, setToken] = useState<ITokenState | null>(() => {
+  const [token, setToken] = useState<ITokenState | null> (() => {
     const token = localStorage.getItem("@KenzieMovie:token");
 
     if (token) {
@@ -55,7 +53,6 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
           password,
           name,
         });
-        // navigate("/login");
       } catch (error) {
         console.error(error);
       }
@@ -95,6 +92,19 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
     }
   }, []);
 
+  const useUserByToken = useCallback(async (token: string) => {
+    try {
+      const {data} = await api.get("/users" ,{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      return data
+    } catch (error) {
+      console.error(error)
+    }
+  }, [])
+
   return (
     <AuthContext.Provider
       value={{
@@ -103,6 +113,7 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
         userLogged,
         userRegister,
         useUser,
+        useUserByToken
       }}
     >
       {children}
