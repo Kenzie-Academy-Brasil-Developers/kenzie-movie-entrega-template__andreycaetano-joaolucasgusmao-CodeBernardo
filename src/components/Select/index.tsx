@@ -1,6 +1,11 @@
 import { ISelectProps } from "../../@types/select";
 
-export const Select = ({ errors, options, register, placeholder }: ISelectProps) => {
+export const Select = ({
+  errors,
+  options,
+  register,
+  placeholder,
+}: ISelectProps) => {
   return (
     <div>
       <select {...register} defaultValue="" placeholder={placeholder}>

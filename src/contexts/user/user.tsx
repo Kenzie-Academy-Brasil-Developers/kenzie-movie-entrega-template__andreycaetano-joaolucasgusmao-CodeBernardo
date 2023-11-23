@@ -15,7 +15,6 @@ interface IAuthContextState {
   useUser: Function;
   useUserByToken: Function
 }
-
 interface IUserData {
   email: string;
   password: string;
@@ -43,7 +42,7 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
       return { token };
     }
 
-      return null
+    return null;
   });
 
   const userRegister = useCallback(
@@ -86,12 +85,12 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
 
   const useUser = useCallback(async (id: number) => {
     try {
-      const {data} = await api.get(`/users/${id}`)
-      return data
+      const { data } = await api.get(`/users/${id}`);
+      return data;
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  },[])
+  }, []);
 
   const useUserByToken = useCallback(async (token: string) => {
     try {

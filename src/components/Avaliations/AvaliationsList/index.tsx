@@ -2,20 +2,22 @@ import { useProductByUserIdStore } from "../../../contexts/products";
 import { useAuth } from "../../../contexts/user/user";
 
 interface IProps {
-  userId: number
-  movieId: number
+  userId: number;
+  movieId: number;
 }
 
-export const AvaliationsList = ({userId, movieId}: IProps) => {
+export const AvaliationsList = ({ userId, movieId }: IProps) => {
   const user = async () => {
-    const { useUser } = useAuth()
-    const user = await useUser(userId)
-    return user
-  }
-  user()
+    const { useUser } = useAuth();
+    const user = await useUser(userId);
+    return user;
+  };
+  user();
 
-    const {productByUserIdData, loadProductByUserId} = useProductByUserIdStore(store => store)
-    loadProductByUserId(userId, movieId)
+  const { productByUserIdData, loadProductByUserId } = useProductByUserIdStore(
+    (store) => store
+  );
+  loadProductByUserId(userId, movieId);
   return (
     <>
       <li>
