@@ -6,7 +6,7 @@ export const MoviePage = () => {
     <>
       <DefaultTemplate>
         <section>
-          <MovieViewed/>
+          <MovieViewed />
         </section>
       </DefaultTemplate>
     </>

@@ -7,7 +7,7 @@ interface IEditFeedbackModal {
   userId: number;
 }
 
-export const EditFeedbackModal = ({movieId, userId}: IEditFeedbackModal) => {
+export const EditFeedbackModal = ({ movieId, userId }: IEditFeedbackModal) => {
   return (
     <div>
       <div>
@@ -15,7 +15,11 @@ export const EditFeedbackModal = ({movieId, userId}: IEditFeedbackModal) => {
         <span>
           <MdOutlineClose />
         </span>
-        <FeedbackForm movieId={movieId} userId={userId} callback={editAvaliation}/>
+        <FeedbackForm
+          movieId={movieId}
+          userId={userId}
+          callback={editAvaliation}
+        />
       </div>
     </div>
   );

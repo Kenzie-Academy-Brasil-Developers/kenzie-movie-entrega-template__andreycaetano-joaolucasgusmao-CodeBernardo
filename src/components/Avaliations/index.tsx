@@ -1,11 +1,11 @@
 import { AvaliationsList } from "./AvaliationsList";
 
 interface IProps {
-  userId: number
-  movieId: number
+  userId: number;
+  movieId: number;
 }
 
-export const Avaliations = ({movieId, userId}: IProps) => {
+export const Avaliations = ({ movieId, userId }: IProps) => {
   return (
     <>
       <div>
@@ -16,7 +16,7 @@ export const Avaliations = ({movieId, userId}: IProps) => {
         </button>
       </div>
       <ul>
-        <AvaliationsList movieId={movieId} userId={userId}/>
+        <AvaliationsList movieId={movieId} userId={userId} />
       </ul>
     </>
   );
