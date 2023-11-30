@@ -9,8 +9,6 @@ import {
   IProducts,
   IUserReview,
 } from "../../@types/products";
-import { useCallback } from "react";
-import { useAuth } from "../user/user";
 import { useCalcMedia } from "../../hooks";
 
 export interface IRequisitioAvaliation {

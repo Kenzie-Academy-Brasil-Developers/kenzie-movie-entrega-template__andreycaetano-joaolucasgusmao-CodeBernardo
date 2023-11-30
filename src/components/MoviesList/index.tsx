@@ -12,7 +12,7 @@ export const MoviesList: React.FC<IMovie> = ({ movie }) => {
       <li>
         <img src={movie.image} alt={movie.name} />
         <div>
-          <span>{movie.type}</span>
+          <button>{movie.type}</button>
           <h2>{movie.name}</h2>
           <div>
             <span>{movie.duration}</span>
