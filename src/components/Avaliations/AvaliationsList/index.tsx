@@ -1,26 +1,24 @@
+import { useEffect } from "react";
 import { useProductByUserIdStore } from "../../../contexts/products";
-import { useAuth } from "../../../contexts/user/user";
+import { useUser } from "../../../contexts/user/user";
 
-interface IProps {
-  userId: number;
-  movieId: number;
-}
-
-export const AvaliationsList = ({ userId, movieId }: IProps) => {
-  const user = async () => {
-    const { useUser } = useAuth();
-    const user = await useUser(userId);
-    return user;
-  };
-  user();
-
+export const AvaliationsList = ({ review}: any) => {
   const { productByUserIdData, loadProductByUserId } = useProductByUserIdStore(
     (store) => store
-  );
-  loadProductByUserId(userId, movieId);
+    );
+  const {loadUser, user, loading} = useUser(store => store)
+    
+    useEffect(() => {
+      loadProductByUserId(review.userId, review.movieId);
+      loadUser(review.userId)
+  }, [])
+
   return (
     <>
-      <li>
+      {
+        loading ? 
+        null : 
+        <li>
         <div>
           <span>{user.name[0].toUpperCase()}</span>
           <div>
@@ -31,6 +29,7 @@ export const AvaliationsList = ({ userId, movieId }: IProps) => {
         <p>{productByUserIdData[0].description}</p>
         <h3>{user.name}</h3>
       </li>
+      }
     </>
   );
 };

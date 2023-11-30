@@ -57,7 +57,7 @@ export const useAllProductReviewsStore = create<IAllProductsReviews>((set) => ({
 }));
 
 export const useProductByIdStore = create<IProductByIdStore>((set) => ({
-  loading: false,
+  loading: true,
   error: "",
   productData: {} as IProductReview,
   note: null,
@@ -78,7 +78,7 @@ export const useProductByIdStore = create<IProductByIdStore>((set) => ({
 }));
 
 export const useProductByUserIdStore = create<IProductByUserIdStore>((set) => ({
-  loading: false,
+  loading: true,
   error: "",
   productByUserIdData: [],
   loadProductByUserId: async (userId: number, productId: number) => {

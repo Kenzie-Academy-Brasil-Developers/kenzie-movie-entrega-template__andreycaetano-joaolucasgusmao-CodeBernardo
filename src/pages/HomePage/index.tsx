@@ -11,7 +11,7 @@ export const HomePage = () => {
   useEffect(() => {
     ProductsStore.loadAllProductsReviews()
     ProductByIdStore.loadProductById("1")
-  }, [])
+ }, []) 
   
   return (
     <>

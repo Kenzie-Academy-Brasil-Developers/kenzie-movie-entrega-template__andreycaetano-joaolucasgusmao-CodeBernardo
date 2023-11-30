@@ -1,11 +1,14 @@
+import { useParams } from "react-router-dom";
 import { AvaliationsList } from "./AvaliationsList";
+import { useProductByIdStore } from "../../contexts/products";
+import { useEffect } from "react";
 
-interface IProps {
-  userId: number;
-  movieId: number;
-}
-
-export const Avaliations = ({ movieId, userId }: IProps) => {
+export const Avaliations = () => {
+const {id} = useParams()
+const {loadProductById,productData,loading} = useProductByIdStore(store => store)
+useEffect(() => {
+  loadProductById(id)
+}, []) 
   return (
     <>
       <div>
@@ -16,7 +19,9 @@ export const Avaliations = ({ movieId, userId }: IProps) => {
         </button>
       </div>
       <ul>
-        <AvaliationsList movieId={movieId} userId={userId} />
+        {loading ? null : productData.reviews.map((review) => {
+          return <AvaliationsList review={review} key={review.id}/>
+        })}
       </ul>
     </>
   );

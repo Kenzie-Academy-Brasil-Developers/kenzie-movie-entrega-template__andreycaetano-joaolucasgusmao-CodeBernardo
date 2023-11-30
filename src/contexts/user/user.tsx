@@ -6,13 +6,13 @@ import {
   useState,
 } from "react";
 import { api } from "../../services/api";
+import { create } from "zustand";
 
 interface IAuthContextState {
   token: ITokenState | null;
   signIn({ email, password }: IUserData): Promise<void>;
   userLogged(): boolean;
   userRegister({ email, password, name }: IRegisterUser): Promise<void>;
-  useUser: Function;
   useUserByToken: Function
 }
 interface IUserData {
@@ -83,14 +83,7 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
     return false;
   }, []);
 
-  const useUser = useCallback(async (id: number) => {
-    try {
-      const { data } = await api.get(`/users/${id}`);
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
+  
 
   const useUserByToken = useCallback(async (token: string) => {
     try {
@@ -112,7 +105,6 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
         signIn,
         userLogged,
         userRegister,
-        useUser,
         useUserByToken
       }}
     >
@@ -125,3 +117,24 @@ export function useAuth(): IAuthContextState {
   const context = useContext(AuthContext);
   return context;
 }
+
+interface IuseUser {
+  loading: boolean;
+  user: any;
+  loadUser: Function;
+}
+
+export const useUser = create<IuseUser>((set) => ({
+  loading: true,
+  user: {},
+  loadUser: async (id: string) => {
+    try {
+      const { data } = await api.get(`/users/${id}`);
+      set({user: data})
+    } catch (error) {
+      console.error(error);
+    }finally{
+      set({loading: false})
+    }
+  }
+}));

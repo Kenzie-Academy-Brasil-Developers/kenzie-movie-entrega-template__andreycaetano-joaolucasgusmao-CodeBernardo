@@ -10,7 +10,6 @@ export const MovieViewed = () => {
   useEffect(() => {
     loadProductById(id);
   }, []);
-  console.log(productData);
   return (
     <>
       <img src={productData.image} alt={productData.name} />
