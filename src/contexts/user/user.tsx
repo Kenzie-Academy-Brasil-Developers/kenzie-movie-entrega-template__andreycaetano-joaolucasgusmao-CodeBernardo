@@ -7,6 +7,7 @@ import {
 } from "react";
 import { api } from "../../services/api";
 import { create } from "zustand";
+import { useNavigate } from "react-router-dom";
 
 interface IAuthContextState {
   token: ITokenState | null;
@@ -35,6 +36,7 @@ interface IInputProps {
 const AuthContext = createContext<IAuthContextState>({} as IAuthContextState);
 
 export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
+  const navigate = useNavigate()
   const [token, setToken] = useState<ITokenState | null> (() => {
     const token = localStorage.getItem("@KenzieMovie:token");
 
@@ -69,7 +71,7 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
       const { token } = response.data;
       setToken(token);
       localStorage.setItem("@KenzieMovie:token", token);
-      // navigate("/");
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
