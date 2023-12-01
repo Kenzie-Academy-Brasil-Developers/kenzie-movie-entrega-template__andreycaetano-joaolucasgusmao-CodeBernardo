@@ -5,13 +5,13 @@ import { options } from "../../../@types/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MdOutlineStarBorder } from "react-icons/md";
 import { Textarea } from "../../Textarea";
-import { ICreateAvaliation } from "../../../contexts/products";
 
 interface IFeedbackForm {
-  movieId: number;
+  movieId: string | undefined;
   userId: number;
-  callback: (data: ICreateAvaliation) => Promise<void>;
+  callback: Function;
 }
+
 export const FeedbackForm = ({ movieId, userId, callback }: IFeedbackForm) => {
   const {
     register,
@@ -45,7 +45,7 @@ export const FeedbackForm = ({ movieId, userId, callback }: IFeedbackForm) => {
       />
 
       <button type="submit">
-        {" "}
+        
         <MdOutlineStarBorder /> Avaliar
       </button>
     </form>

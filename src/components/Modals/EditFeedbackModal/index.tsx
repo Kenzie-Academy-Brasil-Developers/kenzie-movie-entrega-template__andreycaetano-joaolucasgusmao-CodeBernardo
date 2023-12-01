@@ -1,6 +1,6 @@
 import { MdOutlineClose } from "react-icons/md";
 import { FeedbackForm } from "../../Forms/FeedbackForm";
-import { editAvaliation } from "../../../contexts/products";
+import { useEditAvaliation } from "../../../hooks";
 
 interface IEditFeedbackModal {
   movieId: number;
@@ -18,7 +18,7 @@ export const EditFeedbackModal = ({ movieId, userId }: IEditFeedbackModal) => {
         <FeedbackForm
           movieId={movieId}
           userId={userId}
-          callback={editAvaliation}
+          callback={useEditAvaliation}
         />
       </div>
     </div>

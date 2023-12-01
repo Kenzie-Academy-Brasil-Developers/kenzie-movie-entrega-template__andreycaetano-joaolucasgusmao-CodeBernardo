@@ -40,7 +40,7 @@ export interface IProductByIdStore extends IDefaultRequisition {
 
 export interface IProductByUserIdStore extends IDefaultRequisition {
   productByUserIdData: IUserReview[];
-  loadProductByUserId: (userId: number, productId: number) => Promise<void>;
+  loadProductByUserId: (userId: number, productId: string | undefined) => Promise<void>;
 }
 
 export interface IUserReview {

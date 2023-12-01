@@ -9,16 +9,7 @@ import {
   IProducts,
   IUserReview,
 } from "../../@types/products";
-import { useCallback } from "react";
-import { useAuth } from "../user/user";
 import { useCalcMedia } from "../../hooks";
-
-export interface IRequisitioAvaliation {
-  movieId: number;
-  userId: number;
-  score: number;
-  description: string;
-}
 
 export const useAllProductsStore = create<IAllProducts>((set) => ({
   loading: false,
@@ -59,7 +50,7 @@ export const useAllProductReviewsStore = create<IAllProductsReviews>((set) => ({
 }));
 
 export const useProductByIdStore = create<IProductByIdStore>((set) => ({
-  loading: false,
+  loading: true,
   error: "",
   productData: {} as IProductReview,
   note: null,
@@ -80,10 +71,10 @@ export const useProductByIdStore = create<IProductByIdStore>((set) => ({
 }));
 
 export const useProductByUserIdStore = create<IProductByUserIdStore>((set) => ({
-  loading: false,
+  loading: true,
   error: "",
   productByUserIdData: [],
-  loadProductByUserId: async (userId: number, productId: number) => {
+  loadProductByUserId: async (userId: number, productId: string | undefined) => {
     try {
       set({ loading: true, error: "" });
       const { data } = await api.get<IUserReview[]>(
@@ -99,40 +90,5 @@ export const useProductByUserIdStore = create<IProductByUserIdStore>((set) => ({
   },
 }));
 
-// export const createAvaliation = useCallback(
-//   async({movieId, userId, score, description}:IRequisitioAvaliation) => {
-//     try {
-//       const token = useAuth();
-//       await api.post("/reviews" , {
-//         movieId,
-//         userId,
-//         score,
-//         description
-//       },{
-//         headers: {
-//           Authorization: `Bearer ${token}`
-//         }
-//       })
-//     } catch (error) {
-//       console.error(error)
-//     }
-//   }, [])
 
-//   export const editAvaliation = useCallback(
-//     async({movieId, userId, score, description}:IRequisitioAvaliation) => {
-//       try {
-//         const token = useAuth();
-//         await api.put(`/reviews/${movieId}}` , {
-//           movieId,
-//           userId,
-//           score,
-//           description
-//         },{
-//           headers: {
-//             Authorization: `Bearer ${token}`
-//           }
-//         })
-//       } catch (error) {
-//         console.error(error)
-//       }
-//     } ,[])
+

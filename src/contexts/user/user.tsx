@@ -6,14 +6,14 @@ import {
   useState,
 } from "react";
 import { api } from "../../services/api";
+import { create } from "zustand";
+import { useNavigate } from "react-router-dom";
 
 interface IAuthContextState {
   token: ITokenState | null;
   signIn({ email, password }: IUserData): Promise<void>;
   userLogged(): boolean;
   userRegister({ email, password, name }: IRegisterUser): Promise<void>;
-  useUser: Function;
-  useUserByToken: Function
 }
 interface IUserData {
   email: string;
@@ -35,6 +35,7 @@ interface IInputProps {
 const AuthContext = createContext<IAuthContextState>({} as IAuthContextState);
 
 export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
+  const navigate = useNavigate()
   const [token, setToken] = useState<ITokenState | null> (() => {
     const token = localStorage.getItem("@KenzieMovie:token");
 
@@ -53,6 +54,7 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
           password,
           name,
         });
+        navigate("/login")
       } catch (error) {
         console.error(error);
       }
@@ -69,7 +71,7 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
       const { token } = response.data;
       setToken(token);
       localStorage.setItem("@KenzieMovie:token", token);
-      // navigate("/");
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
@@ -83,28 +85,6 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
     return false;
   }, []);
 
-  const useUser = useCallback(async (id: number) => {
-    try {
-      const { data } = await api.get(`/users/${id}`);
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
-
-  const useUserByToken = useCallback(async (token: string) => {
-    try {
-      const {data} = await api.get("/users" ,{
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      return data
-    } catch (error) {
-      console.error(error)
-    }
-  }, [])
-
   return (
     <AuthContext.Provider
       value={{
@@ -112,8 +92,6 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
         signIn,
         userLogged,
         userRegister,
-        useUser,
-        useUserByToken
       }}
     >
       {children}
@@ -125,3 +103,53 @@ export function useAuth(): IAuthContextState {
   const context = useContext(AuthContext);
   return context;
 }
+
+interface IuseUser {
+  loading: boolean;
+  user: any;
+  loadUser: Function;
+}
+
+export const useUser = create<IuseUser>((set) => ({
+  loading: true,
+  user: {},
+  loadUser: async (id: string) => {
+    try {
+      const { data } = await api.get(`/users/${id}`);
+      set({user: data})
+    } catch (error) {
+      console.error(error);
+    }finally{
+      set({loading: false})
+    }
+  }
+}));
+
+interface IUser{
+  name: string;
+  email: string;
+  age: number;
+  id: number
+}
+interface IUseUserByToken{
+  loading: boolean;
+  user: IUser[];
+  loadUser: Function
+}
+
+export const useUserByToken = create<IUseUserByToken>((set) => ({
+  loading: true,
+  user: [],
+  loadUser: async(token: ITokenState) => {
+    try {
+      const {data} = await api.get("/users" ,{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      set({user: data})
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}))

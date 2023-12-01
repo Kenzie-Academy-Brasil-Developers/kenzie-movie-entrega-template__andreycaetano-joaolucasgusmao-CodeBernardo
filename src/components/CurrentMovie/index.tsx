@@ -1,18 +1,20 @@
-export const CurrentMovie = () => {
+import { Link } from "react-router-dom";
+
+export const CurrentMovie = ({movie , note} : any) => {
   return (
-    <>
-      <img src="#" alt="Current Movie" />
+    <Link to={`/movie/${movie.id}`}>
+      <img src={movie.image} alt={movie.name} />
       <div>
-        <button>Current Gender</button>
-        <h2>Current Movie Name</h2>
+        <button>{movie.type}</button>
+        <h2>{movie.name}</h2>
         <div>
-          <span>Current Duration</span>
+          <span>{movie.duration}</span>
           <div>
             <i>Star Icon</i>
-            <span>Current Avaliation</span>
+            <span>{note}</span>
           </div>
         </div>
       </div>
-    </>
+    </Link>
   );
 };
