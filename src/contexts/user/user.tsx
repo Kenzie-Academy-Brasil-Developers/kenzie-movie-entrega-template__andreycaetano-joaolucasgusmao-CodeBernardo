@@ -55,6 +55,7 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
           password,
           name,
         });
+        navigate("/login")
       } catch (error) {
         console.error(error);
       }
