@@ -14,7 +14,6 @@ interface IAuthContextState {
   signIn({ email, password }: IUserData): Promise<void>;
   userLogged(): boolean;
   userRegister({ email, password, name }: IRegisterUser): Promise<void>;
-  useUserByToken: Function
 }
 interface IUserData {
   email: string;
@@ -86,21 +85,6 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
     return false;
   }, []);
 
-  
-
-  const useUserByToken = useCallback(async (token: string) => {
-    try {
-      const {data} = await api.get("/users" ,{
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      return data
-    } catch (error) {
-      console.error(error)
-    }
-  }, [])
-
   return (
     <AuthContext.Provider
       value={{
@@ -108,7 +92,6 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
         signIn,
         userLogged,
         userRegister,
-        useUserByToken
       }}
     >
       {children}
@@ -141,3 +124,32 @@ export const useUser = create<IuseUser>((set) => ({
     }
   }
 }));
+
+interface IUser{
+  name: string;
+  email: string;
+  age: number;
+  id: number
+}
+interface IUseUserByToken{
+  loading: boolean;
+  user: IUser[];
+  loadUser: Function
+}
+
+export const useUserByToken = create<IUseUserByToken>((set) => ({
+  loading: true,
+  user: [],
+  loadUser: async(token: ITokenState) => {
+    try {
+      const {data} = await api.get("/users" ,{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      set({user: data})
+    } catch (error) {
+      console.error(error)
+    }
+  }
+}))
