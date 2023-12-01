@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
+
 export const CurrentMovie = ({movie , note} : any) => {
   return (
-    <>
+    <Link to={`/movie/${movie.id}`}>
       <img src={movie.image} alt={movie.name} />
       <div>
         <button>{movie.type}</button>
@@ -13,6 +15,6 @@ export const CurrentMovie = ({movie , note} : any) => {
           </div>
         </div>
       </div>
-    </>
+    </Link>
   );
 };
