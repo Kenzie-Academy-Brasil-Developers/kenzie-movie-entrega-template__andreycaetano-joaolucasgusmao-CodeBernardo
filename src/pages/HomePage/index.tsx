@@ -23,7 +23,7 @@ export const HomePage = () => {
               if (movie.id === 1) {
                 return null
               }
-              return <MoviesList movie={movie}/>
+              return <MoviesList key={movie.id} movie={movie}/>
             })}
           </ul>
         </section>
