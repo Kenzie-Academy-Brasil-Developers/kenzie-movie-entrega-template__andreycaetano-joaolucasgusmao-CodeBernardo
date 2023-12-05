@@ -6,7 +6,7 @@ export const DefaultTemplate = ({ children }: DefaultTemplateProps) => {
   return (
     <>
       <Header />
-      <main>{children}</main>
+      <main className="w-3/4 mx-auto my-0 pb-28">{children}</main>
       <Footer />
     </>
   );

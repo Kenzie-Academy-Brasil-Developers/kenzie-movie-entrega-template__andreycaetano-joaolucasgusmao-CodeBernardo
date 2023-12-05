@@ -68,10 +68,11 @@ export const AuthProvider: React.FC<IInputProps> = ({ children }) => {
         email,
         password,
       });
-      const { token } = response.data;
-      setToken(token);
-      localStorage.setItem("@KenzieMovie:token", token);
+      const logg = response.data;
+      setToken(logg.acceessToken);
+      localStorage.setItem("@KenzieMovie:token", JSON.stringify(logg));
       navigate("/");
+
     } catch (error) {
       console.error(error);
     }
@@ -150,6 +151,25 @@ export const useUserByToken = create<IUseUserByToken>((set) => ({
       set({user: data})
     } catch (error) {
       console.error(error)
+    } finally {
+      set({loading: false})
     }
+  }
+}))
+
+interface IGetUser{
+  loading: boolean;
+  user: any;
+  loadUser: Function;
+}
+
+export const GetUser = create<IGetUser>((set) => ({
+  loading: true,
+  user: {},
+  loadUser: () => {
+    let user : any = localStorage.getItem("@KenzieMovie:token")
+    user = JSON.parse(user)
+    user = user.user
+    set({user: user, loading: false})
   }
 }))
